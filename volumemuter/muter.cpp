@@ -16,7 +16,8 @@ using namespace Gdiplus;
 if ((punk) != NULL)  \
 { (punk)->Release(); (punk) = NULL; }
 
-void main() {
+int main() {
+    //FreeConsole();
     //("Volum: ", doubleToString((double)vol), NULL)
     HRESULT hr;
     IMMDeviceEnumerator* pEnumerator = NULL;

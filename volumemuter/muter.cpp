@@ -17,9 +17,7 @@ if ((punk) != NULL)  \
 { (punk)->Release(); (punk) = NULL; }
 
 int main() {
-    //FreeConsole();
     //("Volum: ", doubleToString((double)vol), NULL)
-    HRESULT hr;
     IMMDeviceEnumerator* pEnumerator = NULL;
     IMMDevice* pDevice = NULL;
     IAudioMeterInformation* pMeterInfo = NULL;
@@ -28,15 +26,15 @@ int main() {
     CoInitialize(NULL);
 
     // Get enumerator for audio endpoint devices.
-    hr = CoCreateInstance(__uuidof(MMDeviceEnumerator),
+    CoCreateInstance(__uuidof(MMDeviceEnumerator),
         NULL, CLSCTX_INPROC_SERVER,
         __uuidof(IMMDeviceEnumerator),
         (void**)&pEnumerator);
 
     // Get peak meter for default audio-rendering device.
-    hr = pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
+    pEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, &pDevice);
 
-    hr = pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, 0, (void**)&endpointVolume);
+    pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, 0, (void**)&endpointVolume);
 
     endpointVolume->SetMasterVolumeLevelScalar(0, NULL);
 	endpointVolume->SetMute(TRUE, NULL);
